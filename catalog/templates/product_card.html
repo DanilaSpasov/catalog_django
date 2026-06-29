@@ -1,0 +1,21 @@
+<div class="col-3 d-flex">
+    <div class="card mb-4 box-shadow product-card w-100">
+        {% if product.image %}
+        <img src="{{ product.image.url }}"
+             class="card-img-top"
+             style="max-height: 200px; width: auto; display: block; margin: 0 auto;"
+             alt="{{ product.name }}">
+        {% endif %}
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{ product.title }} </h1>
+            <h3 class="card-title pricing-card-title">{{ product.price }} ₽</h3>
+            <p class="product-description flex-grow-1">
+                {{ product.description|truncatechars:100 }}
+            </p>
+            <button type="button" class="btn btn-lg btn-block btn-outline-primary w-100 mt-auto">Купить</button>
+        </div>
+    </div>
+</div>
