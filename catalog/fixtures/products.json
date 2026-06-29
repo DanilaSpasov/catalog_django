@@ -1,0 +1,54 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "title": "Сосиска",
+        "description": "Вкусная еда для человека",
+        "image": "",
+        "category": 1,
+        "price": "100.00",
+        "created_at": "2026-06-28T12:50:28.927Z",
+        "updated_at": "2026-06-28T12:50:28.927Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "title": "Куртка",
+        "description": "Удобная куртка последней модели",
+        "image": "",
+        "category": 2,
+        "price": "1000.00",
+        "created_at": "2026-06-28T12:53:05.610Z",
+        "updated_at": "2026-06-28T12:53:05.610Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "title": "Штаны",
+        "description": "Удобные штаны последней модели",
+        "image": "",
+        "category": 2,
+        "price": "1100.00",
+        "created_at": "2026-06-28T12:55:01.532Z",
+        "updated_at": "2026-06-28T12:55:01.532Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "title": "Хлеб",
+        "description": "Свежее сегодняшнее хлебобулочное изделие",
+        "image": "",
+        "category": 1,
+        "price": "100.00",
+        "created_at": "2026-06-28T12:56:11.011Z",
+        "updated_at": "2026-06-28T12:56:11.011Z"
+    }
+}
+]

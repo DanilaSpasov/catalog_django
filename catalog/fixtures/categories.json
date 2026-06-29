@@ -1,0 +1,18 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "title": "Еда",
+        "description": "Еда для людей"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "title": "Одежда",
+        "description": "Одежда для людей"
+    }
+}
+]
