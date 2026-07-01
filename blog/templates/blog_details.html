@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+            {% if blog.preview_image %}
+            <img src="{{ blog.preview_image.url }}"
+                 style="max-height: 500px; width: auto; display: block; margin: 0 auto;"
+                 class="img-fluid rounded"
+                 alt="{{ blog.title }}">
+            {% endif %}
+        </div>
+
+
+        <div class="col-md-6">
+            <h2>{{ blog.title }}</h2>
+
+
+            <p class="mt-4">
+                {{ blog.content }}
+            </p>
+
+            <p class="mt-4">
+                Создано: {{ blog.created_at|date:"d M Y"}}.
+            </p>
+
+            <a href="{% url 'blog:blog' %}"
+               class="btn btn-secondary btn-lg mt-3 w-100">
+                Назад
+            </a>
+
+            <a href="{% url 'blog:blog_update' blog.pk %}"
+               class="btn btn-primary btn-lg mt-3 w-100">
+                Редактировать
+            </a>
+
+            <a href="{% url 'blog:blog_delete' blog.pk %}"
+               class="btn btn-danger btn-lg mt-3 w-100">
+                Удалить
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
