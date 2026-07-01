@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+            {% if product.image %}
+            <img src="{{ product.image.url }}"
+                 style="max-height: 500px; width: auto; display: block; margin: 0 auto;"
+                 class="img-fluid rounded"
+                 alt="{{ product.name }}">
+            {% endif %}
+        </div>
+
+
+        <div class="col-md-6">
+            <h2>{{ product.name }}</h2>
+
+            <h3 class="text-success mt-3">
+                {{ product.price }} ₽
+            </h3>
+
+            <p class="mt-4">
+                {{ product.description }}
+            </p>
+
+            <p class="mt-4">
+                Создано: {{ product.created_at|date:"d M Y"}}.
+            </p>
+
+            <p class="mt-4">
+                Изменено: {{ product.updated_at|date:"d M Y"}}.
+            </p>
+
+            <button class="btn btn-primary btn-lg mt-3 w-100">
+                Купить
+            </button>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

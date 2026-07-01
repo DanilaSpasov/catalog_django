@@ -8,12 +8,12 @@
 
 - **Фреймворк**: Django 3.14
 - **СУБД**: PostgreSQL
-- **ORM**: Django ORM (`ForeignKey`, `DecimalField`, `DateTimeField` и др.)
-- **Миграции**: `makemigrations` / `migrate`
-- **Администрирование**: Django Admin с расширенной настройкой (`list_display`, `list_filter`, `search_fields`)
-- **Инструменты**: Django shell, фикстуры, кастомные management‑команды
+- **ORM**: Django ORM (ForeignKey, DecimalField, DateTimeField и др.)
+- **Миграции**: makemigrations / migrate
+- **Администрирование**: Django Admin (list_display, list_filter, search_fields)
+- **Инструменты**: Django shell, fixtures, management commands
 - **IDE**: PyCharm
-- **Контроль версий**: Git, репозиторий на GitHub
+- **Контроль версий**: Git / GitHub
 
 ---
 
@@ -24,6 +24,21 @@
 Для подключения своих данных установите библиотеку `.dotenv` и в файл `.env` вставьте свои необходимые данные по шаблону из файла `.env_example`. Не забудьте про `SECRET_KEY`!
 
 База данных catalog_django создаётся вручную в PostgreSQL (например, через pgAdmin или psql).
+
+---
+
+## Функциональность проекта
+
+### Каталог товаров
+- Отображение списка товаров
+- Страница детального просмотра товара
+- Отображение изображения, цены и описания
+- Связь товаров с категориями
+
+### Страницы сайта
+- Главная страница (`/home/`)
+- Страница контактов (`/contacts/`)
+- Страница товара (`/product/<id>/`)
 
 ---
 
@@ -81,6 +96,7 @@ python manage.py runserver
 * `/home/` — главная страница
 * `/contacts/` — страница контактов
 * `/admin/` — панель администратора Django
+* `product/<id>/` — страница товара
 
 ---
 
