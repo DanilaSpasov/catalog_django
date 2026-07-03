@@ -19,6 +19,14 @@
                class="btn btn-lg btn-outline-primary w-100 mt-auto">
                 Купить
             </a>
+            <a href="{% url 'catalog:product_update' product.pk %}"
+               class="btn btn-lg btn-outline-info w-100 mt-auto">
+                Редактировать
+            </a>
+            <a href="{% url 'catalog:product_delete' product.pk %}"
+               class="btn btn-lg btn-outline-danger w-100 mt-auto">
+                Удалить
+            </a>
         </div>
     </div>
 </div>

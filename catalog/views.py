@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -21,22 +22,25 @@ class ProductDetailsView(DetailView):
     template_name = "product_details.html"
     context_object_name = "product"
     pk_url_kwarg = "pk"
+    form_class = ProductForm
 
 class ProductCreateView(CreateView):
     model = Product
     template_name = "product_create.html"
-    fields = ["title", "description", "price", "image"]
-    success_url = "/catalog/"
+    success_url = "/home/"
+    form_class = ProductForm
 
 class ProductUpdateView(UpdateView):
     model = Product
     template_name = "product_update.html"
-    fields = ["title", "description", "price", "image"]
     pk_url_kwarg = "pk"
-    success_url = "/catalog/"
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse("catalog:product_details", kwargs={"pk": self.object.pk})
 
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = "product_delete.html"
     pk_url_kwarg = "pk"
-    success_url = "/catalog/"
+    success_url = "/home/"

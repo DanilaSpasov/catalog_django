@@ -15,7 +15,7 @@ BANNED_WORDS = [
     "радар",
 ]
 
-class ProductUpdateForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ["title", "description", "image", "category", "price"]
@@ -40,7 +40,6 @@ class ProductUpdateForm(forms.ModelForm):
 
         self.fields["category"].widget.attrs.update({
             "class": "form-control",
-            "placeholder": "Введите категорию"
         })
 
         self.fields["price"].widget.attrs.update({
@@ -51,7 +50,7 @@ class ProductUpdateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         lower_title = cleaned_data.get("title", "").lower()
-        lower_description = self.cleaned_data("description", "").lower()
+        lower_description = cleaned_data.get("description", "").lower()
         for word in BANNED_WORDS:
             if word in lower_title or word in lower_description:
                 raise forms.ValidationError(f"Запрещено использовать слово {word} в заголовке или описании.")
@@ -59,6 +58,6 @@ class ProductUpdateForm(forms.ModelForm):
 
     def clean_price(self):
         price = self.cleaned_data["price"]
-        if price < 0 and price is not None:
+        if price is not None and price < 0:
             raise forms.ValidationError("Цена не может быть отрицательной.")
         return price
