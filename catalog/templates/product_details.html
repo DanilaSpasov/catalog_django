@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}{{ product.title }}{% endblock %}
 
 {% block content %}
 
@@ -12,13 +12,13 @@
             <img src="{{ product.image.url }}"
                  style="max-height: 500px; width: auto; display: block; margin: 0 auto;"
                  class="img-fluid rounded"
-                 alt="{{ product.name }}">
+                 alt="{{ product.title }}">
             {% endif %}
         </div>
 
 
         <div class="col-md-6">
-            <h2>{{ product.name }}</h2>
+            <h2>{{ product.title }}</h2>
 
             <h3 class="text-success mt-3">
                 {{ product.price }} ₽

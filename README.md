@@ -202,7 +202,13 @@ python manage.py loaddata products.json
 Установить зависимости:
 
 ```
-pip install -r requirements.txt
+poetry install
+```
+
+Активировать виртуальное окружение:
+
+```
+poetry shell
 ```
 
 Применить миграции:
