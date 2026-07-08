@@ -1,16 +1,13 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
-from catalog.apps import CatalogConfig
-from catalog.views import ContactsView, ProductDetailsView, HomeView, ProductCreateView, ProductUpdateView, \
-    ProductDeleteView
+from users.views import RegisterView
+from users.apps import UsersConfig
 
-app_name = CatalogConfig.name
+app_name = UsersConfig.name
 
 urlpatterns = [
-    path("home/", HomeView.as_view(), name="home"),
-    path("contacts/", ContactsView.as_view(), name="contacts"),
-    path("product/<int:pk>/", ProductDetailsView.as_view(), name="product_details"),
-    path("product/create/", ProductCreateView.as_view(), name="product_create"),
-    path("product/<int:pk>/update/", ProductUpdateView.as_view(), name="product_update"),
-    path("product/<int:pk>/delete/", ProductDeleteView.as_view(), name="product_delete"),
+    path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+    path("logout/", LogoutView.as_view(template_name="logout.html"), name="logout"),
+    path("register/", RegisterView.as_view(), name="register"),
 ]

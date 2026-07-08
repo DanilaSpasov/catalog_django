@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Вы вышли из системы</h1>
+    <p class="lead">Спасибо, что воспользовались нашим сайтом. Вы успешно вышли из системы.</p>
+    <a href="{% url 'users:login' %}" class="btn btn-primary btn-lg">Войти снова</a>
+</div>
+{% endblock %}
+
