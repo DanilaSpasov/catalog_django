@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Создание нового продукта{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Создание продукта</h3>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        {{ form.as_p }}
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="{% url 'catalog:home' %}" class="btn btn-outline-secondary">
+                                Отмена
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+</head>
+<body>
+<h2>Student Form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }} <!-- Ошибки, которые не связаны с конкретными полями формы -->
+    {{ form.as_p }} <!-- Рендеринг всех полей формы и связанных с ними ошибок -->
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

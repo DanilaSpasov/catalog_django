@@ -4,10 +4,10 @@
         <img src="{{ product.image.url }}"
              class="card-img-top"
              style="max-height: 200px; width: auto; display: block; margin: 0 auto;"
-             alt="{{ product.name }}">
+             alt="{{ product.title }}">
         {% endif %}
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            <h4 class="my-0 font-weight-normal">{{ product.title }}</h4>
         </div>
         <div class="card-body">
             <h1 class="card-title pricing-card-title">{{ product.title }} </h1>
@@ -18,6 +18,14 @@
             <a href="{% url 'catalog:product_details' product.pk %}"
                class="btn btn-lg btn-outline-primary w-100 mt-auto">
                 Купить
+            </a>
+            <a href="{% url 'catalog:product_update' product.pk %}"
+               class="btn btn-lg btn-outline-info w-100 mt-auto">
+                Редактировать
+            </a>
+            <a href="{% url 'catalog:product_delete' product.pk %}"
+               class="btn btn-lg btn-outline-danger w-100 mt-auto">
+                Удалить
             </a>
         </div>
     </div>
