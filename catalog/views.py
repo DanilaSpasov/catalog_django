@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -24,13 +25,13 @@ class ProductDetailsView(DetailView):
     pk_url_kwarg = "pk"
     form_class = ProductForm
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     template_name = "product_create.html"
     success_url = "/home/"
     form_class = ProductForm
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = "product_update.html"
     pk_url_kwarg = "pk"
@@ -39,7 +40,7 @@ class ProductUpdateView(UpdateView):
     def get_success_url(self):
         return reverse("catalog:product_details", kwargs={"pk": self.object.pk})
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = "product_delete.html"
     pk_url_kwarg = "pk"

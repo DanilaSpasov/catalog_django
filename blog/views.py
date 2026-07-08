@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 
@@ -24,13 +25,13 @@ class BlogDetailsView(DetailView):
         obj.save()
         return obj
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = "blog_create.html"
     fields = ["title", "content", "preview_image", "is_published"]
     success_url = "/blog/"
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
     template_name = "blog_update.html"
     fields = ["title", "content", "preview_image", "is_published"]
@@ -39,7 +40,7 @@ class BlogUpdateView(UpdateView):
     def get_success_url(self):
         return reverse("blog:blog_details", kwargs={"pk": self.object.pk})
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     template_name = "blog_delete.html"
     success_url = "/blog/"
