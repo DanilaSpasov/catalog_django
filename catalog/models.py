@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name="Наименование")
@@ -27,6 +29,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     publication_status = models.BooleanField(default=False, verbose_name="Опубликовано")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Владелец", blank=True, null=True
+    )
 
     def __str__(self):
         return self.title

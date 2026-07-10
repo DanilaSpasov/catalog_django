@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -32,11 +33,21 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     success_url = "/home/"
     form_class = ProductForm
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = "product_update.html"
     pk_url_kwarg = "pk"
+
+    def dispatch(self, request, *args, **kwargs):
+        product = self.get_object()
+        if not product.owner == request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         if self.request.user.has_perm("catalog.can_unpublish_product"):
@@ -52,3 +63,9 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "product_delete.html"
     pk_url_kwarg = "pk"
     success_url = "/home/"
+
+    def dispatch(self, request, *args, **kwargs):
+        product = self.get_object()
+        if product.owner != request.user and not request.user.has_perm("catalog.delete_product"):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)

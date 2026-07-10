@@ -71,6 +71,6 @@ class ModeratorProductForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["publication_status"].widget.attrs.update({
-            "class": "form-control",
+            "class": "form-check-input",
             "placeholder": "Опубликовано"
         })
