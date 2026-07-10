@@ -61,3 +61,16 @@ class ProductForm(forms.ModelForm):
         if price is not None and price < 0:
             raise forms.ValidationError("Цена не может быть отрицательной.")
         return price
+
+class ModeratorProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ["publication_status"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["publication_status"].widget.attrs.update({
+            "class": "form-control",
+            "placeholder": "Опубликовано"
+        })

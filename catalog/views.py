@@ -1,8 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ModeratorProductForm
 from catalog.models import Product
 
 
@@ -37,7 +37,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = "product_update.html"
     pk_url_kwarg = "pk"
-    form_class = ProductForm
+
+    def get_form_class(self):
+        if self.request.user.has_perm("catalog.can_unpublish_product"):
+            return ModeratorProductForm
+        return ProductForm
 
     def get_success_url(self):
         return reverse("catalog:product_details", kwargs={"pk": self.object.pk})
