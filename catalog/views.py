@@ -45,9 +45,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         product = self.get_object()
-        if not product.owner == request.user:
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)
+        if product.owner == request.user:
+            return super().dispatch(request, *args, **kwargs)
+        if request.user.has_perm("catalog.can_unpublish_product"):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied
 
     def get_form_class(self):
         if self.request.user.has_perm("catalog.can_unpublish_product"):
