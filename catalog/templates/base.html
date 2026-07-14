@@ -16,6 +16,16 @@
 
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="/home/">Каталог</a>
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Категории
+            </button>
+            <ul class="dropdown-menu">
+                {% for category in categories %}
+                <li><a class="dropdown-item" href="{% url 'catalog:products_by_category' category.id %}">{{ category.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
         <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
         <a class="p-2 btn btn-outline-primary" href="/blog/">Блог</a>
     </nav>
