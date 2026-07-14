@@ -12,7 +12,8 @@ from django.views.generic import (
 )
 
 from catalog.forms import ProductForm, ModeratorProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_products_by_category
 
 
 class HomeView(ListView):
@@ -25,6 +26,22 @@ class ContactsView(ListView):
     model = Product
     template_name = "contacts.html"
     context_object_name = "product_list"
+
+class ProductsByCategoryView(ListView):
+    model = Product
+    template_name = "products_by_category.html"
+    context_object_name = "products_by_category"
+
+    def get_queryset(self):
+        return get_products_by_category(self.kwargs["category_id"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = Category.objects.get(pk=self.kwargs["category_id"])
+        context["category_title"] = category.title
+        context["category_description"] = category.description
+        return context
+
 
 @method_decorator(cache_page(60), name='dispatch')
 class ProductDetailsView(LoginRequiredMixin, DetailView):

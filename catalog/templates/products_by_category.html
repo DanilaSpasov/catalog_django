@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="mb-4">Продукты категории {{ category_title }}</h1>
+    <h3 class="mb-4">{{ category_description }}</h3>
+
+        <div class="row text-center">
+
+            {% for product in products_by_category %}
+
+            <div class="col-md-3 d-flex">
+                <div class="card mb-4 box-shadow product-card w-100">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         class="card-img-top"
+                         style="max-height: 200px; width: auto; display: block; margin: 0 auto;"
+                         alt="{{ product.title }}">
+                    {% endif %}
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ product.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title pricing-card-title">{{ product.price }} ₽</h3>
+                        <p class="product-description flex-grow-1">
+                            {{ product.description|truncatechars:100 }}
+                        </p>
+                        <a href="{% url 'catalog:product_details' product.pk %}"
+                           class="btn btn-lg btn-outline-primary w-100 mt-auto">
+                            Купить
+                        </a>
+                        {% if product.owner == user %}
+                        <a href="{% url 'catalog:product_update' product.pk %}"
+                           class="btn btn-lg btn-outline-info w-100 mt-auto">
+                            Редактировать
+                        </a>
+                        <a href="{% url 'catalog:product_delete' product.pk %}"
+                           class="btn btn-lg btn-outline-danger w-100 mt-auto">
+                            Удалить
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+                {% endfor %}
+
+        </div>
+
+</div>
+
+{% endblock %}
