@@ -14,9 +14,7 @@ class Command(BaseCommand):
 
         if not email or not password:
             self.stdout.write(
-                self.style.ERROR(
-                    "Не заданы данные суперпользователя в .env"
-                )
+                self.style.ERROR("Не заданы данные суперпользователя в .env")
             )
             return
 
@@ -29,8 +27,4 @@ class Command(BaseCommand):
         user.set_password(password)
         user.save()
 
-        self.stdout.write(
-            self.style.SUCCESS(
-                "Суперпользователь создан"
-            )
-        )
+        self.stdout.write(self.style.SUCCESS("Суперпользователь создан"))

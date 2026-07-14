@@ -9,5 +9,3 @@ class BlogAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     search_fields = ("title", "content")
     list_filter = ("is_published",)
-
-

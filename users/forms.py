@@ -12,17 +12,14 @@ class UserRegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите email"
-        })
+        self.fields["email"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите email"}
+        )
 
-        self.fields["password1"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите пароль"
-        })
+        self.fields["password1"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите пароль"}
+        )
 
-        self.fields["password2"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Подтвердите пароль"
-        })
+        self.fields["password2"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Подтвердите пароль"}
+        )

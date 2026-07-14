@@ -15,6 +15,7 @@ BANNED_WORDS = [
     "радар",
 ]
 
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -23,29 +24,27 @@ class ProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["title"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите название"
-        })
+        self.fields["title"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите название"}
+        )
 
-        self.fields["description"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите описание"
-        })
+        self.fields["description"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите описание"}
+        )
 
-        self.fields["image"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Загрузите изображение"
-        })
+        self.fields["image"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Загрузите изображение"}
+        )
 
-        self.fields["category"].widget.attrs.update({
-            "class": "form-control",
-        })
+        self.fields["category"].widget.attrs.update(
+            {
+                "class": "form-control",
+            }
+        )
 
-        self.fields["price"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите цену"
-        })
+        self.fields["price"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите цену"}
+        )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -53,7 +52,9 @@ class ProductForm(forms.ModelForm):
         lower_description = cleaned_data.get("description", "").lower()
         for word in BANNED_WORDS:
             if word in lower_title or word in lower_description:
-                raise forms.ValidationError(f"Запрещено использовать слово {word} в заголовке или описании.")
+                raise forms.ValidationError(
+                    f"Запрещено использовать слово {word} в заголовке или описании."
+                )
         return cleaned_data
 
     def clean_price(self):
@@ -61,6 +62,7 @@ class ProductForm(forms.ModelForm):
         if price is not None and price < 0:
             raise forms.ValidationError("Цена не может быть отрицательной.")
         return price
+
 
 class ModeratorProductForm(forms.ModelForm):
     class Meta:
@@ -70,7 +72,6 @@ class ModeratorProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["publication_status"].widget.attrs.update({
-            "class": "form-check-input",
-            "placeholder": "Опубликовано"
-        })
+        self.fields["publication_status"].widget.attrs.update(
+            {"class": "form-check-input", "placeholder": "Опубликовано"}
+        )

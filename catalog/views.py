@@ -1,7 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 
 from catalog.forms import ProductForm, ModeratorProductForm
 from catalog.models import Product
@@ -18,7 +26,7 @@ class ContactsView(ListView):
     template_name = "contacts.html"
     context_object_name = "product_list"
 
-
+@method_decorator(cache_page(60), name='dispatch')
 class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "product_details.html"
@@ -68,6 +76,8 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         product = self.get_object()
-        if product.owner != request.user and not request.user.has_perm("catalog.delete_product"):
+        if product.owner != request.user and not request.user.has_perm(
+            "catalog.delete_product"
+        ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
