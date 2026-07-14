@@ -13,9 +13,7 @@ class UserAdmin(admin.ModelAdmin):
         "is_staff",
         "is_active",
     )
-    list_display_links = (
-        "email",
-    )
+    list_display_links = ("email",)
     search_fields = (
         "email",
         "first_name",

@@ -1,10 +1,21 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 
 from catalog.forms import ProductForm, ModeratorProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_products_by_category
 
 
 class HomeView(ListView):
@@ -18,7 +29,23 @@ class ContactsView(ListView):
     template_name = "contacts.html"
     context_object_name = "product_list"
 
+class ProductsByCategoryView(ListView):
+    model = Product
+    template_name = "products_by_category.html"
+    context_object_name = "products_by_category"
 
+    def get_queryset(self):
+        return get_products_by_category(self.kwargs["category_id"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = Category.objects.get(pk=self.kwargs["category_id"])
+        context["category_title"] = category.title
+        context["category_description"] = category.description
+        return context
+
+
+@method_decorator(cache_page(60), name='dispatch')
 class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "product_details.html"
@@ -68,6 +95,8 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         product = self.get_object()
-        if product.owner != request.user and not request.user.has_perm("catalog.delete_product"):
+        if product.owner != request.user and not request.user.has_perm(
+            "catalog.delete_product"
+        ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
